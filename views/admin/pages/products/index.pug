@@ -1,0 +1,86 @@
+extends ../../layouts/default
+
+
+block main
+    h1.mb-4 Danh sách sản phẩm
+    .card.mb-4
+        .card-body
+            .d-flex.gap-2.mb-2
+                a.btn(class=(currentStatus === 'all' ? 'btn-primary' : 'btn-outline-primary') href="/admin/products") Tất cả
+                a.btn(class=(currentStatus === 'active' ? 'btn-primary' : 'btn-outline-primary') href="/admin/products?status=active") Hoạt động
+                a.btn(class=(currentStatus === 'inactive' ? 'btn-primary' : 'btn-outline-primary') href="/admin/products?status=inactive") Dừng hoạt động
+            form.d-flex.align-items-center.gap-2(method="GET")
+                input.form-control(
+                    type="text", 
+                    name="keyword", 
+                    placeholder="Nhập từ khóa", 
+                    style="max-width: 200px;"
+                    value=keyword || ''
+                )
+                if currentStatus !== 'all'
+                    input(type="hidden", name="status", value=currentStatus)
+                button.btn.btn-success(type="submit")
+                    i.fas.fa-search.me-1
+                    | Tìm
+    .card
+        .card-body
+            h5 Danh sách
+            table.table.table-bordered.align-middle.mt-3
+                thead
+                    tr
+                        th STT
+                        th Hình ảnh
+                        th Tiêu đề
+                        th Giá
+                        th Trạng thái
+                        th Hành động
+                tbody
+                    each product, idx in products
+                        tr
+                            td #{idx + 1}
+                            td: img(src=product.thumbnail, alt=product.title, style="width: 60px; height: 60px; object-fit: cover;")
+                            td #{product.title}
+                            td #{product.price}
+                            td
+                                td
+                                    if product.status == 'active'
+                                        a(
+                                            href="javascript:;"
+                                            data-status=product.status
+                                            data-id=product._id
+                                            button-change-status
+                                            class="badge text-bg-success"
+                                            style="text-decoration: none;"
+                                        ) Hoạt động
+                                    else
+                                        a(
+                                           href="javascript:;"
+                                            data-status=product.status
+                                            data-id=product._id
+                                            button-change-status
+                                            class="badge text-bg-danger"
+                                            style="text-decoration: none;"
+                                        ) Dừng hoạt động
+                            td
+                                a.btn.btn-warning.btn-sm(href=`/admin/products/edit/${product._id}`) Sửa
+                                a.btn.btn-danger.btn-sm.ms-1(href=`/admin/products/delete/${product._id}`) Xóa
+            //- Pagination
+            nav.mt-3
+                ul.pagination
+                    li.page-item.active
+                        a.page-link(href="#") 1
+                    li.page-item
+                        a.page-link(href="#") 2
+                    li.page-item
+                        a.page-link(href="#") 3
+                    li.page-item
+                        a.page-link(href="#") 4
+                    li.page-item
+                        a.page-link(href="#") 5
+                    li.page-item
+                        a.page-link(href="#") Kế tiếp
+
+
+
+block script
+    script(src="/admin/js/product.js") 

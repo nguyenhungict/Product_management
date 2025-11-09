@@ -1,0 +1,10 @@
+.bg-dark(style="min-height: 100vh; width: 250px;")
+    .p-3
+        h4.text-white.mb-3 ADMIN
+        .nav.flex-column
+            a.nav-link(href="/admin/dashboard", class={"active": pageActive === "dashboard"})
+                i.fas.fa-tachometer-alt.me-2
+                | Tổng quan
+            a.nav-link(href="/admin/products", class={"active": pageActive === "products"})
+                i.fas.fa-box.me-2
+                | Sản phẩm

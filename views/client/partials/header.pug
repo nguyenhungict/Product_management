@@ -1,1 +1,61 @@
-header Header
+header.header
+    .header-container
+        .container-fluid
+            .header-wrapper
+                .header-logo
+                    a.logo-link(href="/")
+                        img.logo-img(src="/images/logo.svg", alt="Logo")
+                        span.logo-text Product Store
+                
+                nav.header-nav
+                    a.nav-link(href="/") 
+                        i.fas.fa-home
+                        span Trang chủ
+                    a.nav-link(href="/products")
+                        i.fas.fa-box
+                        span Sản phẩm
+                    a.nav-link(href="/chat")
+                        i.fas.fa-comments
+                        span Chat
+                
+                .header-actions
+                    if user
+                        .user-menu-wrapper
+                            .user-info-header
+                                if user.avatar
+                                    img.user-avatar-header(src=user.avatar, alt=user.fullName)
+                                else
+                                    .user-avatar-placeholder
+                                        i.fas.fa-user
+                                span.user-name-header= user.fullName
+                                i.fas.fa-chevron-down.chevron-icon
+                            
+                            .user-dropdown-menu
+                                .dropdown-header
+                                    .dropdown-user-info
+                                        if user.avatar
+                                            img.dropdown-avatar(src=user.avatar, alt=user.fullName)
+                                        else
+                                            .dropdown-avatar-placeholder
+                                                i.fas.fa-user
+                                        .dropdown-user-details
+                                            strong.dropdown-user-name= user.fullName
+                                            small.dropdown-user-email= user.email || "user@example.com"
+                                
+                                .dropdown-divider
+                                
+                                a.dropdown-menu-item(href="/profile")
+                                    i.fas.fa-user-circle
+                                    span Thông tin cá nhân
+                                
+                                a.dropdown-menu-item(href="/auth/logout")
+                                    i.fas.fa-sign-out-alt
+                                    span Đăng xuất
+                    else
+                        .auth-buttons-wrapper
+                            a.btn-auth.btn-login(href="/auth/login")
+                                i.fas.fa-sign-in-alt
+                                span Đăng nhập
+                            a.btn-auth.btn-register(href="/auth/register")
+                                i.fas.fa-user-plus
+                                span Đăng ký

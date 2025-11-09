@@ -1,0 +1,42 @@
+doctype html
+html(lang="vi")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Chat 
+        
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+        link(rel="stylesheet", href="/css/chat.css")
+
+    body
+        .chat-wrapper
+            .chat-container
+                .chat-header
+                    h1.chat-title Chat
+
+                .chat-messages
+                    each chat in chats
+                        if chat.user_id == user.id
+                            .message.sent
+                                .message-bubble #{chat.content}
+                        else
+                            .message.received
+                                if chat.infoUser
+                                    .sender-name #{chat.infoUser.fullName}
+                                else
+                                    .sender-name Người dùng đã xóa
+                                .message-bubble #{chat.content}
+                
+                .chat-input-area
+                    input.chat-input(type="text", placeholder="Nhập nội dung...")
+                    button.send-button
+                        i.fas.fa-paper-plane
+        
+       
+        //Socket io
+        script(src="/socket.io/socket.io.js")
+        script(src="/js/socket.js")
+        script.
+            window.currentUserId = "#{user.id}";
+        script(src="/js/chat.js")
+        

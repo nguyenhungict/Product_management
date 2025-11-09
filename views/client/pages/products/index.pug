@@ -1,4 +1,27 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
 block main
-    h1 Trang danh sach san pham
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head('Danh sách sản phẩm')
+
+        .row 
+            each item in products
+                .col-md-4.col-lg-3.mb-4
+                    .product-card
+                        img(src=item.thumbnail, alt=item.title)
+                        h2= item.title
+                        p= item.description
+                        
+                        .price-section
+                            if item.discountPercentage && item.discountPercentage > 0
+                                .price-old= item.price + '$'
+                                .price-new= ((item.price * (1 - item.discountPercentage / 100)).toFixed(2)) + '$'
+                                .discount-badge= '-' + item.discountPercentage + '%'
+                            else
+                                .price-new= item.price + '$'
+                        
+                        .stock-info Tồn kho: #{item.stock}
+                        //- a.button(href=`/products/${item._id}`) Xem chi tiết 

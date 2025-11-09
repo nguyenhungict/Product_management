@@ -1,0 +1,73 @@
+extends ../../layouts/default
+
+block main
+    .container.my-5
+        .row.justify-content-center
+            .col-md-6.col-lg-5
+                .card.shadow
+                    .card-body.p-4
+                        .text-center.mb-4
+                            h3.card-title Đăng ký tài khoản
+                            p.text-muted Tạo tài khoản mới để sử dụng dịch vụ
+
+                        // Hiển thị lỗi
+                        if errors.length > 0
+                            .alert.alert-danger
+                                ul.mb-0
+                                    each error in errors
+                                        li= error
+
+                        // Hiển thị thành công
+                        if success.length > 0
+                            .alert.alert-success
+                                ul.mb-0
+                                    each msg in success
+                                        li= msg
+
+                        form(action="/auth/register", method="POST")
+                            .mb-3
+                                label.form-label(for="fullName") Họ và tên
+                                input.form-control(
+                                    type="text", 
+                                    id="fullName", 
+                                    name="fullName", 
+                                    required,
+                                    placeholder="Nhập họ và tên"
+                                )
+                            
+                            .mb-3
+                                label.form-label(for="email") Email
+                                input.form-control(
+                                    type="email", 
+                                    id="email", 
+                                    name="email", 
+                                    required,
+                                    placeholder="Nhập email của bạn"
+                                )
+                            
+                            .mb-3
+                                label.form-label(for="password") Mật khẩu
+                                input.form-control(
+                                    type="password", 
+                                    id="password", 
+                                    name="password", 
+                                    required,
+                                    placeholder="Nhập mật khẩu (ít nhất 6 ký tự)"
+                                )
+                            
+                            .mb-3
+                                label.form-label(for="confirmPassword") Xác nhận mật khẩu
+                                input.form-control(
+                                    type="password", 
+                                    id="confirmPassword", 
+                                    name="confirmPassword", 
+                                    required,
+                                    placeholder="Nhập lại mật khẩu"
+                                )
+                            
+                            .d-grid.gap-2
+                                button.btn.btn-primary.btn-lg(type="submit") Đăng ký
+                            
+                            .text-center.mt-3
+                                p.mb-0 Đã có tài khoản? 
+                                    a(href="/auth/login") Đăng nhập ngay
